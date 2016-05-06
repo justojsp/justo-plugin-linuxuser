@@ -10,10 +10,10 @@ op;var _child_process = require("child_process");var _child_process2 = _interopR
 
   if (params.length >= 1) opts = params[0];
   if (!opts) opts = {};
-  if (!opts.username) throw new Error("username expected.");
+  if (!opts.name) throw new Error("name expected.");
 
 
-  res = _child_process2.default.spawnSync("usermod", ["--unlock", opts.username]);
+  res = _child_process2.default.spawnSync("usermod", ["--unlock", opts.name]);
 
   if (opts.output) console.log(res.stdout.toString());
   if (res.status) throw new Error(res.stderr.toString());

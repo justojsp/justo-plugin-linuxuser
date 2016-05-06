@@ -10,7 +10,7 @@ op;var _child_process = require("child_process");var _child_process2 = _interopR
 
   if (params.length >= 1) opts = params[0];
   if (!opts) opts = {};
-  if (!opts.username) throw new Error("username expected.");
+  if (!opts.name) throw new Error("name expected.");
   if (typeof opts.groups == "string") opts.groups = [opts.groups];
 
 
@@ -21,7 +21,7 @@ op;var _child_process = require("child_process");var _child_process2 = _interopR
   if (opts.shell) args.push("--shell"), args.push(opts.shell);
   if (opts.lock) args.push("--lock");
   if (opts.unlock) args.push("--unlock");
-  args.push(opts.username);
+  args.push(opts.name);
 
 
   res = _child_process2.default.spawnSync("usermod", args);

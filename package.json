@@ -1,6 +1,6 @@
 {
   "name": "justo-plugin-linuxuser",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Plugin to create users and groups on Linux.",
   "homepage": "http://justojs.org",
   "author": {
@@ -54,7 +54,7 @@
     "lib/"
   ],
   "scripts": {
-    "test": "justo test"
+    "test": "sudo env PATH=$PATH justo test"
   },
   "preferGlobal": false
 }

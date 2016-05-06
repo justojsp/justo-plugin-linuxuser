@@ -15,19 +15,19 @@ suite("#op()", function() {
     op([{}]).must.be.eq(false);
   });
 
-  test("exists({username}) : true", function() {
-    op([{username: "daemon"}]).must.be.eq(true);
+  test("exists({name}) : true", function() {
+    op([{name: "daemon"}]).must.be.eq(true);
   });
 
-  test("exists({usernames}) : true", function() {
-    op([{usernames: ["root", "daemon"]}]).must.be.eq(true);
+  test("exists({names}) : true", function() {
+    op([{names: ["root", "daemon"]}]).must.be.eq(true);
   });
 
-  test("exists({usernames}) : false - someone existing", function() {
-    op([{usernames: ["daemon", "unknown"]}]).must.be.eq(false);
+  test("exists({names}) : false - someone existing", function() {
+    op([{names: ["daemon", "unknown"]}]).must.be.eq(false);
   });
 
-  test("exists({usernames}) : false - none existing", function() {
-    op([{usernames: ["unknown1", "unknown2"]}]).must.be.eq(false);
+  test("exists({names}) : false - none existing", function() {
+    op([{names: ["unknown1", "unknown2"]}]).must.be.eq(false);
   });
 })();

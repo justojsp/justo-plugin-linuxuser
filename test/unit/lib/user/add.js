@@ -18,64 +18,64 @@ suite("#op()", function() {
     child_process.spawnSync("deluser", ["--remove-home", "--remove-all-files", USERNAME]).status.must.be.eq(0);
   });
 
-  test("add({username})", function() {
-    op([{username: USERNAME}]).must.be.eq(0);
+  test("add({name})", function() {
+    op([{name: USERNAME}]).must.be.eq(0);
     dir("/home", USERNAME).must.exist();
     child_process.spawnSync("grep", [`^${USERNAME}:`, "/etc/passwd"]).stdout.toString().must.match(
       /^testing:x:.+:.+:,,,:\/home\/testing:\/bin\/bash/
     );
   });
 
-  test("add({username, uid})", function() {
-    op([{username: USERNAME, uid: 1234321}]).must.be.eq(0);
+  test("add({name, uid})", function() {
+    op([{name: USERNAME, uid: 1234321}]).must.be.eq(0);
     dir("/home", USERNAME).must.exist();
     child_process.spawnSync("grep", [`^${USERNAME}:x:1234321:`, "/etc/passwd"]).stdout.toString().must.match(
       /^testing:x:.+:.+:,,,:\/home\/testing:\/bin\/bash/
     );
   });
 
-  test("add({username, shell, home, login})", function() {
-    op([{username: USERNAME, home: "/home/anotherHome", shell: "/bin/sh"}]).must.be.eq(0);
+  test("add({name, shell, home, login})", function() {
+    op([{name: USERNAME, home: "/home/anotherHome", shell: "/bin/sh"}]).must.be.eq(0);
     dir("/home/anotherHome").must.exist();
     child_process.spawnSync("grep", [`^${USERNAME}:`, "/etc/passwd"]).stdout.toString().must.match(
       /^testing:x:.+:.+:,,,:\/home\/anotherHome:\/bin\/sh/
     );
   });
 
-  test("add({username, home:false})", function() {
-    op([{username: USERNAME, home: false}]).must.be.eq(0);
+  test("add({name, home:false})", function() {
+    op([{name: USERNAME, home: false}]).must.be.eq(0);
     dir("/home", USERNAME).must.not.exist();
     child_process.spawnSync("grep", [`^${USERNAME}:`, "/etc/passwd"]).stdout.toString().must.match(
       /^testing:x:.+:.+:,,,:\/home\/testing:\/bin\/bash/
     );
   });
 
-  test("add({username, login:false})", function() {
-    op([{username: USERNAME, login: false}]).must.be.eq(0);
+  test("add({name, login:false})", function() {
+    op([{name: USERNAME, login: false}]).must.be.eq(0);
     dir("/home", USERNAME).must.exist();
     child_process.spawnSync("grep", [`^${USERNAME}:`, "/etc/passwd"]).stdout.toString().must.match(
       /^testing:x:.+:.+:,,,:\/home\/testing:\/bin\/bash/
     );
   });
 
-  test("add({username, group:string})", function() {
-    op([{username: USERNAME, group: "users"}]).must.be.eq(0);
+  test("add({name, group:string})", function() {
+    op([{name: USERNAME, group: "users"}]).must.be.eq(0);
     dir("/home", USERNAME).must.exist();
     child_process.spawnSync("grep", [`^${USERNAME}:`, "/etc/passwd"]).stdout.toString().must.match(
       /^testing:x:.+:100:,,,:\/home\/testing:\/bin\/bash/
     );
   });
 
-  test("add({username, group:number})", function() {
-    op([{username: USERNAME, group: 100}]).must.be.eq(0);
+  test("add({name, group:number})", function() {
+    op([{name: USERNAME, group: 100}]).must.be.eq(0);
     dir("/home", USERNAME).must.exist();
     child_process.spawnSync("grep", [`^${USERNAME}:`, "/etc/passwd"]).stdout.toString().must.match(
       /^testing:x:.+:100:,,,:\/home\/testing:\/bin\/bash/
     );
   });
 
-  test("add({username, uid:number, group:number})", function() {
-    op([{username: USERNAME, uid:111222, group: 100}]).must.be.eq(0);
+  test("add({name, uid:number, group:number})", function() {
+    op([{name: USERNAME, uid:111222, group: 100}]).must.be.eq(0);
     dir("/home", USERNAME).must.exist();
     child_process.spawnSync("grep", [`^${USERNAME}:`, "/etc/passwd"]).stdout.toString().must.match(
       /^testing:x:111222:100:,,,:\/home\/testing:\/bin\/bash/

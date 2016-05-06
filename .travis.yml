@@ -13,9 +13,12 @@ node_js:
   - 5.10
   - 5.11
   - 6.0
+  - 6.1
 os:
   - linux
-sudo: true
+env:
+  - TRAVIS=true
+sudo: required
 before_install: npm install -g justo-cli
 install: npm install
 #before_script:

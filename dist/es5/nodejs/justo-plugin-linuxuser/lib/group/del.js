@@ -10,12 +10,12 @@ op;var _child_process = require("child_process");var _child_process2 = _interopR
 
   if (params.length >= 1) opts = params[0];
   if (!opts) opts = {};
-  if (!opts.groupname) throw new Error("groupname expected.");
+  if (!opts.name) throw new Error("name expected.");
 
 
   args = [];
   if (opts.onlyIfEmpty) args.push("--only-if-empty");
-  args.push(opts.groupname);
+  args.push(opts.name);
 
 
   res = _child_process2.default.spawnSync("delgroup", args);

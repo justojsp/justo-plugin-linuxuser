@@ -21,31 +21,31 @@ suite("#op()", function() {
     child_process.spawnSync("deluser", ["--remove-home", "--remove-all-files", USERNAME]).status.must.be.eq(0);
   });
 
-  test("mod({username, lock})", function() {
+  test("mod({name, lock})", function() {
     op([{
-      username: USERNAME,
+      name: USERNAME,
       lock: true
     }]).must.be.eq(0);
 
     child_process.spawnSync("grep", ["-q", `^${USERNAME}:!:`, "/etc/shadow"]).status.must.be.eq(0);
   });
 
-  init({name: "mod({username, unlock})", title: "Lock user"}, function() {
+  init({name: "mod({name, unlock})", title: "Lock user"}, function() {
     child_process.spawnSync("usermod", ["--lock", USERNAME]).status.must.be.eq(0);
   });
 
-  test("mod({username, unlock})", function() {
+  test("mod({name, unlock})", function() {
     op([{
-      username: USERNAME,
+      name: USERNAME,
       unlock: true
     }]).must.be.eq(0);
 
     child_process.spawnSync("grep", ["-q", `^${USERNAME}:\*:`, "/etc/shadow"]).status.must.be.eq(0);
   });
 
-  test("mod({username, home, shell})", function() {
+  test("mod({name, home, shell})", function() {
     op([{
-      username: USERNAME,
+      name: USERNAME,
       home: "/home/anotherhome",
       shell: "/bin/sh"
     }]).must.be.eq(0);
@@ -53,25 +53,25 @@ suite("#op()", function() {
     child_process.spawnSync("grep", ["-q", `^${USERNAME}:.*:/home/anotherhome:/bin/sh$`, "/etc/passwd"]).status.must.be.eq(0);
   });
 
-  test("mod({username, password})", function() {
+  test("mod({name, password})", function() {
     op([{
-      username: USERNAME,
+      name: USERNAME,
       password: "newpwd"
     }]).must.be.eq(0);
   });
 
-  test("mod({username, groups:string})", function() {
+  test("mod({name, groups:string})", function() {
     op([{
-      username: USERNAME,
+      name: USERNAME,
       groups: "users"
     }]).must.be.eq(0);
 
     child_process.spawnSync("id", [USERNAME]).stdout.toString().must.match(/groups=.*\(users\)/);
   });
 
-  test("mod({username, groups:string[]})", function() {
+  test("mod({name, groups:string[]})", function() {
     op([{
-      username: USERNAME,
+      name: USERNAME,
       groups: ["users", "daemon"]
     }]).must.be.eq(0);
 

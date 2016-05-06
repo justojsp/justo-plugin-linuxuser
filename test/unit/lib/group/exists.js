@@ -21,33 +21,33 @@ suite("#op()", function() {
     child_process.spawnSync("delgroup", [GROUPNAME]).status.must.be.eq(0);
   });
 
-  test("exists({groupname}) : true", function() {
+  test("exists({name}) : true", function() {
     op([{
-      groupname: GROUPNAME
+      name: GROUPNAME
     }]).must.be.eq(true);
   });
 
-  test("exists({groupname}) : false", function() {
+  test("exists({name}) : false", function() {
     op([{
-      groupname: "unknown"
+      name: "unknown"
     }]).must.be.eq(false);
   });
 
-  test("exists({groupnames})", function() {
+  test("exists({names})", function() {
     op([{
-      groupnames: [GROUPNAME, "users"]
+      names: [GROUPNAME, "users"]
     }]).must.be.eq(true);
   });
 
-  test("exists({groupnames}) : some existing", function() {
+  test("exists({names}) : some existing", function() {
     op([{
-      groupnames: [GROUPNAME, "unknown"]
+      names: [GROUPNAME, "unknown"]
     }]).must.be.eq(false);
   });
 
-  test("exists({groupnames}) : none existing", function() {
+  test("exists({names}) : none existing", function() {
     op([{
-      groupnames: ["unknown1", "unknown2"]
+      names: ["unknown1", "unknown2"]
     }]).must.be.eq(false);
   });
 })();

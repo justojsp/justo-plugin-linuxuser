@@ -11,19 +11,19 @@ op;var _justoFs = require("justo-fs");var _child_process = require("child_proces
 
   if (params.length >= 1) opts = Object.assign({}, params[0]);
   if (!opts) opts = {};
-  if (!opts.hasOwnProperty("usernames")) opts.usernames = [];
-  if (typeof opts.usernames == "string") opts.usernames = [opts.usernames];
-  if (opts.hasOwnProperty("username")) opts.usernames.push(opts.username);
+  if (!opts.hasOwnProperty("names")) opts.names = [];
+  if (typeof opts.names == "string") opts.names = [opts.names];
+  if (opts.hasOwnProperty("name")) opts.names.push(opts.name);
 
 
-  if (opts.usernames.length === 0) {
+  if (opts.names.length === 0) {
     res = false;} else 
   {
     var passwd = new _justoFs.File("/etc/passwd").text.split("\n");
 
     res = true;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
 
-      for (var _iterator = opts.usernames[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var usr = _step.value;
+      for (var _iterator = opts.names[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var usr = _step.value;
         var exists = false;var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {
 
           for (var _iterator2 = passwd[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var ln = _step2.value;

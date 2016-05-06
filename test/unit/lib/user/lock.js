@@ -21,9 +21,9 @@ suite("#op()", function() {
     child_process.spawnSync("deluser", ["--remove-home", "--remove-all-files", USERNAME]).status.must.be.eq(0);
   });
 
-  test("lock({username})", function() {
+  test("lock({name})", function() {
     op([{
-      username: USERNAME
+      name: USERNAME
     }]).must.be.eq(0);
 
     child_process.spawnSync("grep", ["-q", `^${USERNAME}:!:`, "/etc/shadow"]).status.must.be.eq(0);

@@ -15,20 +15,20 @@ suite("#op()", function() {
     op([{}]).must.be.eq([]);
   });
 
-  test("info({username})", function() {
-    op([{username: "root"}]).must.be.eq([
-      {username: "root", uid: 0, gid: 0, home: "/root", shell: "/bin/bash"}
+  test("info({name})", function() {
+    op([{name: "root"}]).must.be.eq([
+      {name: "root", uid: 0, gid: 0, home: "/root", shell: "/bin/bash"}
     ]);
   });
 
-  test("info({usernames})", function() {
-    op([{usernames: ["root", "daemon"]}]).must.be.eq([
-      {username: "root", uid: 0, gid: 0, home: "/root", shell: "/bin/bash"},
-      {username: "daemon", uid: 1, gid: 1, home: "/usr/sbin", shell: "/usr/sbin/nologin"}
+  test("info({names})", function() {
+    op([{names: ["root", "daemon"]}]).must.be.eq([
+      {name: "root", uid: 0, gid: 0, home: "/root", shell: "/bin/bash"},
+      {name: "daemon", uid: 1, gid: 1, home: "/usr/sbin", shell: "/bin/sh"}
     ]);
   });
 
-  test("info({usernames}) : []", function() {
-    op([{usernames: ["root2", "daemon2"]}]).must.be.eq([]);
+  test("info({names}) : []", function() {
+    op([{names: ["root2", "daemon2"]}]).must.be.eq([]);
   });
 })();

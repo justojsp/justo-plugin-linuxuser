@@ -1,4 +1,5 @@
 [![NPM version](http://img.shields.io/npm/v/justo-plugin-linuxuser.svg)](https://www.npmjs.org/package/justo-plugin-linuxuser)
+[![Build Status](https://travis-ci.org/justojsp/justo-plugin-linuxuser.svg?branch=master)](https://travis-ci.org/justojsp/justo-plugin-linuxuser)
 [![Dependency Status](https://david-dm.org/justojsp/justo-plugin-linuxuser.svg)](https://david-dm.org/justojsp/justo-plugin-linuxuser)
 [![devDependency Status](https://david-dm.org/justojsp/justo-plugin-linuxuser/dev-status.svg)](https://david-dm.org/justojsp/justo-plugin-linuxuser#info=devDependencies)
 
@@ -47,7 +48,7 @@ user.add(justoOpts, opts : object) : number
 
 The `opts` parameter:
 
-- `username` (string). The username.
+- `name` (string). The username.
 - `password` (false). If `false`, the password is disabled.
 - `system` (boolean). The user is a superuser. Default: `false`.
 - `home` (false or string). The home directory. If `false`, the home dir is not created.
@@ -60,7 +61,7 @@ Example:
 
 ```
 user.add("Create postgres user", {
-  username: "postgres",
+  name: "postgres",
   home: false,
   login: false,
   group: "postgres"
@@ -77,7 +78,7 @@ user.mod(justoOpts, opts : object)
 
 The `opts` parameter:
 
-- `username` (string). Username.
+- `name` (string). Username.
 - `password` (string). User password.
 - `groups` (string[]). Supplementary groups to be member.
 - `home` (string). Home directory.
@@ -89,7 +90,7 @@ Example:
 
 ```
 user.mod("Change postgres password", {
-  username: "postgres",
+  name: "postgres",
   password: "newpwd"
 });
 ```
@@ -104,12 +105,12 @@ user.lock(justoOpts, opts : object)
 
 The `opts` parameter:
 
-- `username` (string). The username.
+- `name` (string). The username.
 
 Example:
 
 ```
-user.lock("Lock bunnyman user", {username: "bunnyman"});
+user.lock("Lock bunnyman user", {name: "bunnyman"});
 ```
 
 ## user.unlock task
@@ -122,12 +123,12 @@ user.unlock(justoOpts, opts : object)
 
 The `opts` parameter:
 
-- `username` (string). The username.
+- `name` (string). The username.
 
 Example:
 
 ```
-user.unlock("Unlock bunnyman user", {username: "bunnyman"});
+user.unlock("Unlock bunnyman user", {name: "bunnyman"});
 ```
 
 ## user.del task
@@ -140,7 +141,7 @@ user.del(justoOpts, opts : object) : number
 
 The `opts` parameter:
 
-- `username` (string). The username.
+- `name` (string). The username.
 - `force` (boolean). Force? Default: `false`.
 - `remove` (object). Remove options:
   - `home` (boolean). Remove home directory? Default: `false`.
@@ -152,9 +153,7 @@ Alias: `user.remove`.
 Example:
 
 ```
-user.remove("Remove postgres user", {
-  username: "postgres"
-});
+user.remove("Remove postgres user", {name: "postgres", remove: {home: true, files: true}});
 ```
 
 ## user.exists task
@@ -167,15 +166,15 @@ user.exists(justoOpts, opts : object) : boolean
 
 The `opts` parameter:
 
-- `username` (string). The username to check.
-- `usernames` (string[]). The usernames to check.
+- `name` (string). The username to check.
+- `names` (string[]). The usernames to check.
 
 Example:
 
 ```
-if (!user.exists("Check whether postgres exists", {username: "postgres"})) {
+if (!user.exists("Check whether postgres exists", {name: "postgres"})) {
   user.add("Create postgres user", {
-    username: "postgres",
+    name: "postgres",
     password: "pg1234"
   });
 }
@@ -191,8 +190,8 @@ user.info(justoOpts, opts : object) : object[]
 
 The `opts` parameter:
 
-- `username` (string). Username.
-- `usernames` (string). Usernames.
+- `name` (string). Username.
+- `names` (string). Usernames.
 
 # Group tasks
 
@@ -206,14 +205,14 @@ group.add(justoOpts, opts : object)
 
 The `opts` parameter:
 
-- `groupname` (string). Group name.
+- `name` (string). Group name.
 - `gid` (number). GID.
 - `system` (boolean). System group? Default: `false`.
 
 Example:
 
 ```
-group.add("Create database group", {groupname: "dbs"})
+group.add("Create database group", {name: "dbs"})
 ```
 
 ## group.del task
@@ -226,7 +225,7 @@ group.del(justoOpts, opts : object)
 
 The `opts` parameter:
 
-- `groupname` (string). Group name.
+- `name` (string). Group name.
 - `onlyIfEmpty` (boolean). Only if empty? Default: `false`.
 
 Alias: `group.remove`.
@@ -234,7 +233,7 @@ Alias: `group.remove`.
 Example:
 
 ```
-group.remove("Remove dbs group", {groupname: "dbs"});
+group.remove("Remove dbs group", {name: "dbs"});
 ```
 
 ## group.exists task
@@ -247,14 +246,14 @@ user.exists(justoOpts, opts : object) : boolean
 
 The `opts` parameter:
 
-- `groupname` (string). The group name to check.
-- `groupnames` (string[]). The group names to check.
+- `name` (string). The group name to check.
+- `names` (string[]). The group names to check.
 
 Example:
 
 ```
-if (!group.exists("Check whether dbs exists", {groupname: "dbs"})) {
-  group.add("Create dbs group", {groupname: "dbs"});
+if (!group.exists("Check whether dbs exists", {name: "dbs"})) {
+  group.add("Create dbs group", {name: "dbs"});
 }
 ```
 
@@ -268,11 +267,11 @@ group.info(justoOpts, opts : object) : object[]
 
 The `opts` parameter:
 
-- `groupname` (string). Group name.
-- `groupnames` (string). Group names.
+- `name` (string). Group name.
+- `names` (string). Group names.
 
 Example:
 
 ```
-var grps = group.info("Get group info", {groupname: "dbs"});
+var grps = group.info("Get group info", {name: "dbs"});
 ```

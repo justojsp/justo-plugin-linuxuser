@@ -18,29 +18,29 @@ suite("#op()", function() {
     if (res.status) throw new Error(res.stderr.toString());
   });
 
-  test("del({username})", function() {
+  test("del({name})", function() {
     op([{
-      username: USERNAME
+      name: USERNAME
     }]).must.be.eq(0);
   });
 
-  test("del({username, remove})", function() {
+  test("del({name, remove})", function() {
     op([{
-      username: USERNAME,
+      name: USERNAME,
       remove: {home: true, files: true}
     }]).must.be.eq(0);
   });
 
-  test("del({username, remove, backup})", function() {
+  test("del({name, remove, backup})", function() {
     op([{
-      username: USERNAME,
+      name: USERNAME,
       remove: {home: true, files: true, backup: true}
     }]).must.be.eq(0);
   });
 
-  test("del({username, force})", function() {
+  test("del({name, force})", function() {
     op([{
-      username: USERNAME,
+      name: USERNAME,
       force: true
     }]).must.be.eq(0);
   });

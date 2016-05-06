@@ -17,17 +17,17 @@ suite("#op()", function() {
     child_process.spawnSync("delgroup", [GROUPNAME]).status.must.be.eq(0);
   });
 
-  test("add({groupname})", function() {
+  test("add({name})", function() {
     op([{
-      groupname: GROUPNAME
+      name: GROUPNAME
     }]).must.be.eq(0);
 
     child_process.spawnSync("grep", ["-q", `^${GROUPNAME}:`, "/etc/group"]).status.must.be.eq(0);
   });
 
-  test("add({groupname, gid})", function() {
+  test("add({name, gid})", function() {
     op([{
-      groupname: GROUPNAME,
+      name: GROUPNAME,
       gid: 1234321
     }]).must.be.eq(0);
 

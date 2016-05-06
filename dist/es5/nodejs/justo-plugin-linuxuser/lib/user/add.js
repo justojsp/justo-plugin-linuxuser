@@ -10,7 +10,7 @@ op;var _child_process = require("child_process");var _child_process2 = _interopR
 
   if (params.length >= 1) opts = Object.assign({}, params[0]);
   if (!opts) opts = {};
-  if (!opts.username) throw new Error("username expected.");
+  if (!opts.name) throw new Error("name expected.");
 
 
   args = [];
@@ -26,7 +26,7 @@ op;var _child_process = require("child_process");var _child_process2 = _interopR
   if (typeof opts.group == "string") args.push("--ingroup"), args.push(opts.group);
 
   if (opts.login === false) args.push("--disabled-login");
-  args.push(opts.username);
+  args.push(opts.name);
 
 
   res = _child_process2.default.spawnSync("adduser", args);
